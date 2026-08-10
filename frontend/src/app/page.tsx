@@ -4,9 +4,6 @@ import Link from 'next/link';
 export default function MasterLandingPage() {
   return (
     <main className="flex min-h-[calc(100vh-80px)] flex-col items-center justify-center p-6 relative z-10 overflow-hidden font-sans">
-      
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-brand-cyan/10 to-brand-purple/10 blur-[120px] rounded-full -z-10 animate-[pulse_6s_ease-in-out_infinite]"></div>
 
       {/* Hero Section */}
       <div className="relative mb-16 flex flex-col items-center text-center mt-8">
