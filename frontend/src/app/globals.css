@@ -1,64 +1,36 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-cyber-bg: #0a0a0f;
-  --color-cyber-surface: rgba(20, 20, 30, 0.65);
-  --color-cyber-primary: #00f0ff;
-  --color-cyber-secondary: #7000ff;
-  --color-cyber-success: #00ff66;
-  --color-cyber-warning: #ffb800;
-  --color-cyber-danger: #ff003c;
+  --color-brand-purple: #c488fb;
+  --color-brand-blue: #5b98f7;
+  --color-brand-success: #21fea9;
+  --color-brand-cyan: #50dffb;
+  --color-brand-danger: #ff4a6b;
   
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @layer base {
   body {
-    background-color: var(--color-cyber-bg);
+    background: radial-gradient(circle at top right, #0a0e1a 0%, #030303 100%);
     color: #e2e8f0;
     font-family: var(--font-sans);
     min-height: 100vh;
     overflow-x: hidden;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
   .glass-panel {
-    background: var(--color-cyber-surface);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(13, 22, 47, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
     border-radius: 1rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  .nav-btn {
-    background: transparent;
-    color: #94a3b8;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .nav-btn:hover {
-    color: #fff;
-  }
-
-  .nav-btn.active {
-    color: var(--color-cyber-primary);
-  }
-
-  .nav-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--color-cyber-primary);
-    box-shadow: 0 0 10px var(--color-cyber-primary);
   }
 }
