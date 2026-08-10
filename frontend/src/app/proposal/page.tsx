@@ -93,7 +93,7 @@ export default function ProposalEngine() {
           <div className="p-6 rounded-2xl border border-white/10 bg-[#141419]/80 backdrop-blur-md shadow-2xl flex flex-col items-center">
             <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 w-full text-left">Conversion Probability</h3>
             <div className="relative w-full h-[300px]">
-              <ReadinessGauge score={finalScore} />
+              <ReadinessGauge score={finalScore} blockedByEvidence={lockActive} />
               {lockActive && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl backdrop-blur-sm z-10">
                   <div className="text-brand-danger text-center font-mono">
