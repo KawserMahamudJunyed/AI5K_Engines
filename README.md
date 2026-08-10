@@ -53,7 +53,7 @@ Add this to your `%APPDATA%\Claude\claude_desktop_config.json` (Windows) or `~/L
   "mcpServers": {
     "ai5k-local-engine": {
       "command": "python",
-      "args": ["/absolute/path/to/AI5K_Agent/app/mcp_server.py"]
+      "args": ["/absolute/path/to/AI5K_Engines/app/mcp_server.py"]
     }
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { 
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend
@@ -111,101 +111,112 @@ export default function Home() {
   ] : [{ name: 'Claims', T1_T2: 0, T3_T4: 0, T5_T6: 0, T7_T8: 0 }];
 
   return (
-    <main style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <main className="container mx-auto px-6 py-8">
+      
+      <header className="mb-8 flex justify-between items-end">
         <div>
-          <h2 style={{ fontSize: '28px', fontWeight: 'bold' }}>Layer 1: Profile Intelligence</h2>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>Verified Capability Ingestion & Analytics</p>
+          <h2 className="text-3xl font-bold text-white">Layer 1: Profile Intelligence</h2>
+          <p className="text-gray-400 mt-2">Verified Capability Ingestion & 7-Dimension Analytics</p>
         </div>
       </header>
 
       {/* Input Section */}
-      <div className="glass-panel" style={{ padding: '24px', marginBottom: '32px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
-        <input 
-          type="file" 
-          accept=".pdf"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid var(--border-color)', color: 'white' }} 
-        />
-        <input 
-          type="text" 
-          placeholder="GitHub Username" 
-          value={githubUrl}
-          onChange={(e) => setGithubUrl(e.target.value)}
-          style={{ padding: '10px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid var(--border-color)', color: 'white', minWidth: '200px' }} 
-        />
-        <button 
-          onClick={handleUpload}
-          disabled={status === 'analyzing'}
-          style={{ background: 'var(--primary-color)', color: 'black', padding: '10px 24px', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: status === 'analyzing' ? 'not-allowed' : 'pointer' }}
-        >
-          {status === 'analyzing' ? `Analyzing (${progress}%)` : 'Run Pipeline'}
-        </button>
-        {errorMsg && <span style={{ color: 'var(--danger-color, #ff003c)' }}>{errorMsg}</span>}
+      <div className="glass-panel p-6 mb-8 flex flex-wrap gap-4 items-center">
+        <div className="flex-1 min-w-[250px]">
+            <label className="block text-xs text-cyber-primary uppercase tracking-wider mb-2">Upload PDF CV</label>
+            <input 
+                type="file" 
+                accept=".pdf"
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyber-primary/20 file:text-cyber-primary hover:file:bg-cyber-primary/30"
+            />
+        </div>
+        <div className="flex-1 min-w-[250px]">
+            <label className="block text-xs text-cyber-secondary uppercase tracking-wider mb-2">GitHub Username</label>
+            <input 
+                type="text" 
+                placeholder="e.g. torvalds" 
+                value={githubUrl}
+                onChange={(e) => setGithubUrl(e.target.value)}
+                className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyber-secondary"
+            />
+        </div>
+        <div className="w-full md:w-auto flex items-end">
+            <button 
+                onClick={handleUpload}
+                disabled={status === 'analyzing'}
+                className="w-full md:w-auto bg-gradient-to-r from-cyber-primary to-cyber-secondary text-black font-bold py-3 px-8 rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.3)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                {status === 'analyzing' ? `ANALYZING [${progress}%]` : 'INITIALIZE PIPELINE'}
+            </button>
+        </div>
+        {errorMsg && <div className="w-full text-cyber-danger text-sm mt-2">{errorMsg}</div>}
       </div>
 
       {status === 'success' && (
         <>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '24px', marginBottom: '24px' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             
             {/* Overall Readiness */}
-            <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-secondary)', marginBottom: '16px', width: '100%' }}>Overall Readiness</h3>
-              <div style={{ position: 'relative', width: '150px', height: '150px', borderRadius: '50%', background: `conic-gradient(var(--primary-color) ${overallScore}%, rgba(255,255,255,0.05) 0)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: '130px', height: '130px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '36px', fontWeight: 'bold' }}>{overallScore}<span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>/100</span></span>
+            <div className="glass-panel p-6 flex flex-col items-center justify-center relative">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4 w-full text-left">Overall Readiness</h3>
+              <div className="relative w-[150px] h-[150px] rounded-full flex items-center justify-center" style={{ background: `conic-gradient(var(--color-cyber-primary) ${overallScore}%, rgba(255,255,255,0.05) 0)` }}>
+                <div className="w-[130px] h-[130px] rounded-full bg-cyber-bg flex items-center justify-center flex-col shadow-inner">
+                  <span className="text-4xl font-bold text-white">{overallScore}<span className="text-lg text-gray-500">/100</span></span>
                 </div>
               </div>
             </div>
 
             {/* 7-Dimension Radar */}
-            <div className="glass-panel" style={{ padding: '24px' }}>
-              <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-secondary)', marginBottom: '16px' }}>Performance Vector Plot</h3>
-              <div style={{ height: '300px', width: '100%' }}>
+            <div className="glass-panel p-6 md:col-span-2">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">7-Dimension Vector Plot</h3>
+              <div className="h-[250px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 11 }} />
                     <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                    <Radar name="Score" dataKey="A" stroke="var(--secondary-color)" fill="var(--secondary-color)" fillOpacity={0.4} />
+                    <Radar name="Current Profile" dataKey="A" stroke="var(--color-cyber-secondary)" strokeWidth={2} fill="var(--color-cyber-secondary)" fillOpacity={0.2} dot={{ fill: 'var(--color-cyber-primary)', r: 3 }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Evidence Hierarchy */}
-            <div className="glass-panel" style={{ padding: '24px' }}>
-              <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-secondary)', marginBottom: '16px' }}>Evidence Hierarchy (T1-T8)</h3>
-              <div style={{ height: '200px', width: '100%' }}>
+            <div className="glass-panel p-6">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Evidence Hierarchy (T1-T8)</h3>
+              <div className="h-[200px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={barData} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" horizontal={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
                     <XAxis type="number" hide />
                     <YAxis dataKey="name" type="category" hide />
-                    <Tooltip contentStyle={{ backgroundColor: 'rgba(10,10,15,0.9)', borderColor: 'rgba(255,255,255,0.1)' }} />
-                    <Legend />
-                    <Bar dataKey="T1_T2" stackId="a" fill="var(--success-color)" name="T1-T2 (Verified Code)" />
-                    <Bar dataKey="T3_T4" stackId="a" fill="var(--primary-color)" name="T3-T4 (References)" />
-                    <Bar dataKey="T5_T6" stackId="a" fill="var(--secondary-color)" name="T5-T6 (Self-Reported)" />
-                    <Bar dataKey="T7_T8" stackId="a" fill="#333" name="T7-T8 (Weak/None)" />
+                    <Tooltip cursor={{fill: 'rgba(255,255,255,0.05)'}} contentStyle={{ backgroundColor: 'rgba(10,10,15,0.9)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }} />
+                    <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', color: '#94a3b8' }} />
+                    <Bar dataKey="T1_T2" stackId="a" fill="var(--color-cyber-success)" name="T1-T2 (Verified Code)" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="T3_T4" stackId="a" fill="var(--color-cyber-primary)" name="T3-T4 (References)" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="T5_T6" stackId="a" fill="var(--color-cyber-secondary)" name="T5-T6 (Self-Reported)" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="T7_T8" stackId="a" fill="#334155" name="T7-T8 (Weak/None)" radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
             
             {/* Gap Actions */}
-            <div className="glass-panel" style={{ padding: '24px', overflowY: 'auto', maxHeight: '300px' }}>
-              <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-secondary)', marginBottom: '16px' }}>Priority Gap Actions</h3>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
+            <div className="glass-panel p-6 overflow-y-auto max-h-[300px]">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Priority Gap Actions</h3>
+              <ul className="space-y-3">
                 {resultData.result.gap_actions?.map((gap: any, i: number) => (
-                  <li key={i} style={{ padding: '12px', borderBottom: '1px solid var(--border-color)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontWeight: 'bold', color: 'var(--primary-color)' }}>{gap.action_type}</span>
-                      <span style={{ fontSize: '12px', color: gap.priority === 'High' ? 'var(--danger-color, #ff003c)' : 'var(--text-secondary)' }}>{gap.priority} Priority</span>
+                  <li key={i} className="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-cyber-primary/50 transition-colors">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="font-bold text-cyber-primary text-sm">{gap.action_type}</span>
+                      <span className={`text-xs px-2 py-1 rounded border ${gap.priority === 'High' ? 'text-cyber-danger bg-cyber-danger/10 border-cyber-danger/30' : 'text-cyber-warning bg-cyber-warning/10 border-cyber-warning/30'}`}>
+                        {gap.priority} PRIORITY
+                      </span>
                     </div>
-                    <p style={{ fontSize: '14px', marginTop: '4px' }}>{gap.description}</p>
+                    <p className="text-sm text-gray-300">{gap.description}</p>
                   </li>
                 ))}
               </ul>

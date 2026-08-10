@@ -1,99 +1,64 @@
-:root {
-  --bg-color: #0a0a0f;
-  --surface-color: rgba(20, 20, 30, 0.65);
-  --primary-color: #00f0ff;
-  --secondary-color: #7000ff;
-  --success-color: #00ff66;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.1);
+@import "tailwindcss";
+
+@theme inline {
+  --color-cyber-bg: #0a0a0f;
+  --color-cyber-surface: rgba(20, 20, 30, 0.65);
+  --color-cyber-primary: #00f0ff;
+  --color-cyber-secondary: #7000ff;
+  --color-cyber-success: #00ff66;
+  --color-cyber-warning: #ffb800;
+  --color-cyber-danger: #ff003c;
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  body {
+    background-color: var(--color-cyber-bg);
+    color: #e2e8f0;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+@layer components {
+  .glass-panel {
+    background: var(--color-cyber-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
 
-/* Glowing Background Effects */
-.bg-glow-1 {
-  position: fixed;
-  top: -10%;
-  left: -10%;
-  width: 40vw;
-  height: 40vw;
-  border-radius: 50%;
-  background-color: var(--secondary-color);
-  opacity: 0.15;
-  filter: blur(120px);
-  z-index: -1;
-  pointer-events: none;
-}
+  .nav-btn {
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+  }
 
-.bg-glow-2 {
-  position: fixed;
-  bottom: -10%;
-  right: -10%;
-  width: 50vw;
-  height: 50vw;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  opacity: 0.10;
-  filter: blur(150px);
-  z-index: -1;
-  pointer-events: none;
-}
+  .nav-btn:hover {
+    color: #fff;
+  }
 
-/* Glass Panels */
-.glass-panel {
-  background: var(--surface-color);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
+  .nav-btn.active {
+    color: var(--color-cyber-primary);
+  }
 
-/* Typography */
-h1, h2, h3, h4 {
-  color: #fff;
-}
-
-/* Buttons */
-.nav-btn {
-  background: transparent;
-  color: var(--text-secondary);
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-btn:hover {
-  color: #fff;
-}
-
-.nav-btn.active {
-  color: var(--primary-color);
-}
-
-.nav-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color);
+  .nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-cyber-primary);
+    box-shadow: 0 0 10px var(--color-cyber-primary);
+  }
 }
