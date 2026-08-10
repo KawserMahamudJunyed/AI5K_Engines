@@ -32,18 +32,13 @@ def create_app() -> FastAPI:
     app.include_router(claims_router)
     app.include_router(org_router)
     
-    frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
-    
     @app.on_event("startup")
     async def startup():
         await init_db()
     
-    if os.path.isdir(frontend_path):
-        app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
-    else:
-        @app.get("/")
-        def fallback():
-            return RedirectResponse(url="/docs")
+    @app.get("/")
+    def fallback():
+        return RedirectResponse(url="/docs")
     
     return app
 
