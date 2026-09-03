@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
         </nav>
 
         {children}
+        <Analytics />
       </body>
     </html>
   );
